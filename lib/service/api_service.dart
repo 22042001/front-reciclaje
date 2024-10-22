@@ -23,19 +23,28 @@ class ApiService {
   }
 
   // Método para registrar un nuevo usuario
+  // Método para el registro de usuario
   Future<bool> register(Map<String, dynamic> userData) async {
-    final url = Uri.parse('$baseUrl/users');
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(userData),
-    );
+    final url = Uri.parse('$baseUrl/register'); // Ajuste de la URL para el registro
 
-    if (response.statusCode == 201) {
-      print('Registro exitoso');
-      return true;
-    } else {
-      print('Error de registro: ${response.body}');
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode(userData),
+      );
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        print('Error en el registro: ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      print('Excepción durante el registro: $e');
       return false;
     }
   }
