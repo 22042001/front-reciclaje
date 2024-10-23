@@ -21,12 +21,8 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     if (token != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => WelcomePage(),
-        ),
-      );
+      // Redirige a la pantalla de selección de opciones después del inicio de sesión
+      Navigator.pushReplacementNamed(context, '/homeSelection');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al iniciar sesión')),
