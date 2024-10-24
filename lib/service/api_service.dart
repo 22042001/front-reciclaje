@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   final String baseUrl = 'http://10.0.2.2:8000/api'; // Cambia la URL si es necesario
@@ -15,7 +16,11 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return data['token']; // Retorna el token JWT
+      final token = data['token'];
+      // Guarda el token en el almacenamiento local
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      return token;
     } else {
       print('Error de login: ${response.body}');
       return null;
@@ -23,7 +28,6 @@ class ApiService {
   }
 
   // Método para registrar un nuevo usuario
-  // Método para el registro de usuario
   Future<bool> register(Map<String, dynamic> userData) async {
     final url = Uri.parse('$baseUrl/register'); // Ajuste de la URL para el registro
 
@@ -46,6 +50,32 @@ class ApiService {
     } catch (e) {
       print('Excepción durante el registro: $e');
       return false;
+    }
+  }
+
+  // Método para cerrar sesión
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token != null) {
+      final url = Uri.parse('$baseUrl/logout');
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('Sesión cerrada exitosamente');
+      } else {
+        print('Error al cerrar sesión: ${response.body}');
+      }
+
+      // Eliminar el token del almacenamiento local
+      await prefs.remove('token');
     }
   }
 }

@@ -43,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Añade espacio en la parte superior
+                      SizedBox(height: 50), // Ajusta el valor para mover todo el contenido hacia abajo
                       // Imagen de fondo
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -57,18 +59,10 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/images/logo.jpg',
-                            height: 50,
+                            'assets/images/logoeco-2.png',
+                            height: 40,
                           ),
                           SizedBox(width: 10),
-                          Text(
-                            'Eco-Mercio',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ],
                       ),
                       SizedBox(height: 40),
@@ -157,57 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(height: 20),
                       // Iniciar sesión con Google
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          // Implementar funcionalidad de inicio de sesión con Google
-                        },
-                        icon: Icon(
-                          Icons.g_mobiledata,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          'Iniciar sesión con Google',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: Colors.white),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                        ),
-                      ),
                     ],
                   ),
-                ),
-              ),
-            ),
-            // Botón del home
-            Container(
-              color: Colors.black,
-              padding: EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/');
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.home,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Home',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
                 ),
               ),
             ),

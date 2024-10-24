@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
+import 'material_selection_page.dart'; // Asegúrate de importar la nueva pantalla
+import 'login_page.dart'; // Importa la pantalla de inicio de sesión
+import '../service/api_service.dart'; // Asegúrate de importar tu servicio API
 
 class HomeSelectionPage extends StatelessWidget {
+  final ApiService apiService = ApiService(); // Inicializa el servicio API
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 234, 98, 8),
         title: Text('Eco-Mercio', style: TextStyle(color: Colors.white)),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout, color: const Color.fromARGB(255, 11, 11, 11)),
+            onPressed: () async {
+              // Lógica para cerrar sesión
+              await apiService.logout(); // Llama a la función de cierre de sesión
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()), // Redirige a la pantalla de inicio de sesión
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -16,12 +34,12 @@ class HomeSelectionPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/logo.jpg', // Asegúrate de tener esta imagen en tu carpeta de assets
+              'assets/images/logoeco-2.png', // Asegúrate de tener esta imagen en tu carpeta de assets
               height: 80,
             ),
             SizedBox(height: 20),
             Text(
-              'En que te podemos ayudar hoy?',
+              '¿En qué te podemos ayudar hoy?',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -32,7 +50,7 @@ class HomeSelectionPage extends StatelessWidget {
             // Botón "Comprar"
             ElevatedButton(
               onPressed: () {
-                // Lógica para navegar a la vista de lista de publicaciones
+                // Navegar a la vista de lista de publicaciones
                 Navigator.pushNamed(context, '/listPublications');
               },
               style: ElevatedButton.styleFrom(
@@ -54,8 +72,11 @@ class HomeSelectionPage extends StatelessWidget {
             // Botón "Vender"
             ElevatedButton(
               onPressed: () {
-                // Lógica para navegar a la vista de crear publicación
-                Navigator.pushNamed(context, '/createOffer');
+                // Navegar a la pantalla de selección de tipo de material
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MaterialSelectionPage()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.yellow, // Color de fondo del botón
@@ -79,18 +100,6 @@ class HomeSelectionPage extends StatelessWidget {
               height: 150,
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: IconButton(
-            icon: Icon(Icons.home, color: Colors.orange, size: 30),
-            onPressed: () {
-              Navigator.pushNamed(context, '/'); // Volver a la pantalla de inicio de sesión
-            },
-          ),
         ),
       ),
     );
