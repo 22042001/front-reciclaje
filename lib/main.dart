@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'screens/login_page.dart';
 import 'screens/register_page.dart';
 import 'screens/home_selection_page.dart';
-import 'screens/material_selection_page.dart'; // Asegúrate de importar esta nueva pantalla
+import 'screens/material_selection_page.dart';
+import 'screens/create_offer_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/homeSelection': (context) => HomeSelectionPage(),
-        '/materialSelection': (context) => MaterialSelectionPage(), // Nueva ruta para la selección de material
+        '/materialSelection': (context) => MaterialSelectionPage(),
+        
+
       },
     );
   }

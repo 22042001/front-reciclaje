@@ -1,38 +1,21 @@
 import 'package:flutter/material.dart';
+import 'create_offer_page.dart';
 
 class MaterialSelectionPage extends StatelessWidget {
-  final List<String> materials = [
-    'Construcción',
-    'Plásticos',
-    'Papeles',
-    'Metal',
-    'Vidrios'
-  ];
-
-  final List<String> images = [
-    'assets/images/materiales.png',
-    'assets/images/consumo-de-plastico.jpg',
-    'assets/images/papel.png',
-    'assets/images/metales.jpg',
-    'assets/images/vidrio.jpg'
+  // Lista de materiales con ID, nombre y ruta de imagen
+  final List<Map<String, dynamic>> materials = [
+    {'id': '1', 'name': 'Construcción', 'image': 'assets/images/materiales.png'},
+    {'id': '2', 'name': 'Plásticos', 'image': 'assets/images/consumo-de-plastico.jpg'},
+    {'id': '3', 'name': 'Papeles', 'image': 'assets/images/papel.png'},
+    {'id': '4', 'name': 'Metales', 'image': 'assets/images/metales.jpg'},
+    {'id': '5', 'name': 'Vidrios', 'image': 'assets/images/vidrio.jpg'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Eco-Mercio'),
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                // Lógica para el menú lateral
-              },
-            ),
-          ],
-        ),
+        title: Text('Eco-Mercio'),
         backgroundColor: const Color.fromARGB(255, 227, 104, 10),
       ),
       body: Padding(
@@ -63,23 +46,32 @@ class MaterialSelectionPage extends StatelessWidget {
             SizedBox(height: 20),
             // Título de la sección
             Text(
-              'Elige el tipo de material ',
+              'Elige el tipo de material',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                color: Color.fromARGB(255, 255, 87, 34), // Color personalizado usando ARGB
+                color: Color.fromARGB(255, 255, 87, 34),
               ),
             ),
             SizedBox(height: 20),
+            // Lista de materiales
             Expanded(
               child: ListView.builder(
                 itemCount: materials.length,
                 itemBuilder: (context, index) {
+                  final material = materials[index];
                   return GestureDetector(
                     onTap: () {
-                      // Navegar al formulario de creación de oferta
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => CrearOfertaPage(material: materials[index])));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateOfferPage(
+                            materialId: material['id'], // Pasa el ID del material
+                            materialName: material['name'], // Pasa el nombre del material
+                          ),
+                        ),
+                      );
                     },
                     child: Card(
                       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -93,7 +85,7 @@ class MaterialSelectionPage extends StatelessWidget {
                               top: Radius.circular(10),
                             ),
                             child: Image.asset(
-                              images[index],
+                              material['image'],
                               height: 120,
                               width: double.infinity,
                               fit: BoxFit.cover,
@@ -102,11 +94,8 @@ class MaterialSelectionPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              materials[index],
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              material['name'],
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -123,22 +112,11 @@ class MaterialSelectionPage extends StatelessWidget {
         color: const Color.fromARGB(255, 0, 0, 0),
         child: Container(
           height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: Icon(Icons.home, color: const Color.fromARGB(255, 233, 157, 17), size: 30),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/homeSelection'); // Redirige a la pantalla principal
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.person, color: Colors.orange),
-                onPressed: () {
-                  // Redirigir al perfil del usuario
-                },
-              ),
-            ],
+          child: IconButton(
+            icon: Icon(Icons.home, color: const Color.fromARGB(255, 233, 157, 17), size: 30),
+            onPressed: () {
+              Navigator.pushNamed(context, '/homeSelection');
+            },
           ),
         ),
       ),

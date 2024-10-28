@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       body: SafeArea(
         child: Column(
           children: [
@@ -49,9 +50,9 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         child: Image.asset(
-                          'assets/images/fondoInicio.jpg',
+                          'assets/images/reci.png',
                           fit: BoxFit.cover,
-                          height: 300,
+                          height: 250,
                         ),
                       ),
                       SizedBox(height: 20),
