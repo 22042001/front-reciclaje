@@ -108,17 +108,27 @@ class MaterialSelectionPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color.fromARGB(255, 0, 0, 0),
-        child: Container(
-          height: 50,
-          child: IconButton(
-            icon: Icon(Icons.home, color: const Color.fromARGB(255, 233, 157, 17), size: 30),
-            onPressed: () {
-              Navigator.pushNamed(context, '/homeSelection');
-            },
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Mi Perfil',
+          ),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/homeSelection'); // Ir a Home
+          } else if (index == 1) {
+            Navigator.pushNamed(context, '/profile'); // Lógica para ir a Mi Perfil
+          }
+        },
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../service/api_service.dart';
-import 'home_selection_page.dart';
 
 class CreateOfferPage extends StatefulWidget {
   final String materialId; // ID del material seleccionado
@@ -201,26 +200,27 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: Container(
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.home, color: Colors.orange, size: 30),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeSelectionPage()),
-                  );
-                },
-                tooltip: 'Inicio',
-              ),
-            ],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Mi Perfil',
+          ),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/homeSelection'); // Ir a Home
+          } else if (index == 1) {
+            Navigator.pushNamed(context, '/profile'); // Ir a Mi Perfil
+          }
+        },
       ),
     );
   }
