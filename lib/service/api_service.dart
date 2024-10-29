@@ -80,7 +80,7 @@ class ApiService {
     }
   }
 
- // Método para crear una oferta
+  // Método para crear una oferta
   Future<bool> createOffer({
     required String titulo,
     required String descripcion,
@@ -138,6 +138,33 @@ class ApiService {
     } catch (e) {
       print('Excepción durante la creación de la oferta: $e');
       return false;
+    }
+  }
+
+  // Método para obtener la lista de ofertas
+  Future<List<dynamic>?> getOffers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token'); // Obtiene el token almacenado
+
+    if (token == null) {
+      print('Error: Token no encontrado');
+      return null;
+    }
+
+    final url = Uri.parse('$baseUrl/offers');
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      print('Error al obtener las ofertas: ${response.body}');
+      return null;
     }
   }
 }
