@@ -6,7 +6,6 @@ import 'screens/home_selection_page.dart';
 import 'screens/material_selection_page.dart';
 import 'screens/create_offer_page.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -18,15 +17,16 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         scaffoldBackgroundColor: Colors.black,
       ),
+      debugShowCheckedModeBanner: false, // Deshabilita la etiqueta "DEBUG"
       initialRoute: '/login',
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/homeSelection': (context) => HomeSelectionPage(),
         '/materialSelection': (context) => MaterialSelectionPage(),
-        '/createOffer': (context) => CreateOfferPage(materialId: '1', materialName: 'default'),
-        '/listPublications': (context) => ListPublicationsPage(), // Nueva ruta para la lista de ofertas
-
+        '/createOffer': (context) => CreateOfferPage(
+            materialId: '1', materialName: 'default'),
+        '/listPublications': (context) => ListPublicationsPage(),
       },
     );
   }

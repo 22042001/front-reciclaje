@@ -14,21 +14,26 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   // Función de inicio de sesión
-  void login() async {
+    void login() async {
     String? token = await apiService.login(
       emailController.text,
       passwordController.text,
     );
 
     if (token != null) {
-      // Redirige a la pantalla de selección de opciones después del inicio de sesión
-      Navigator.pushReplacementNamed(context, '/homeSelection');
+      if (mounted) { // Verifica si el widget sigue montado
+        // Redirige a la pantalla de selección de opciones después del inicio de sesión
+        Navigator.pushReplacementNamed(context, '/homeSelection');
+      }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al iniciar sesión')),
-      );
+      if (mounted) { // Verifica si el widget sigue montado
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al iniciar sesión')),
+        );
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
