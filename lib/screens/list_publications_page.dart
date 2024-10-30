@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../service/api_service.dart';
 import 'package:intl/intl.dart'; // Para formatear la fecha
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Para íconos de WhatsApp
+import '../service/api_service.dart';
+import 'package:url_launcher/url_launcher.dart'; // Para abrir enlaces externos
 
 class ListPublicationsPage extends StatefulWidget {
   const ListPublicationsPage({Key? key}) : super(key: key);
@@ -64,6 +66,18 @@ class ListPublicationsPageState extends State<ListPublicationsPage> {
     });
   }
 
+  // Método para abrir WhatsApp
+  void openWhatsApp(String phoneNumber) async {
+    final url = 'https://wa.me/$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No se pudo abrir WhatsApp')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +121,7 @@ class ListPublicationsPageState extends State<ListPublicationsPage> {
                       ),
                     ),
                   ),
-                  Icon(Icons.search, color: Colors.orange),
+                  const Icon(Icons.search, color: Colors.orange),
                 ],
               ),
             ),
@@ -138,6 +152,7 @@ class ListPublicationsPageState extends State<ListPublicationsPage> {
                       final imageUrl = (offer['images'] != null && offer['images'].isNotEmpty)
                           ? 'http://10.0.2.2:8000/storage/${offer['images'][0]['ruta_imagen']}'
                           : null;
+                      final phoneNumber = offer['telefono'] ?? '';
 
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -188,26 +203,48 @@ class ListPublicationsPageState extends State<ListPublicationsPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    'Descripción: ${offer['descripción'] ?? 'Sin descripción'}',
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(
+                                          text: 'Descripción: ',
+                                          style: TextStyle(
+                                            color: Colors.black, // Título en negrita
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: '${offer['descripción'] ?? 'Sin descripción'}',
+                                          style: const TextStyle(
+                                            color: Color.fromARGB(255, 82, 80, 80),
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    'Ubicación: ${offer['ubicación'] ?? 'Ubicación desconocida'}',
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(
+                                          text: 'Ubicación: ',
+                                          style: TextStyle(
+                                            color: Colors.black, // Título en negrita
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: '${offer['ubicación'] ?? 'Ubicación desconocida'}',
+                                          style: const TextStyle(
+                                            color: Color.fromARGB(255, 82, 80, 80),
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4),
                                   Row(
@@ -216,16 +253,29 @@ class ListPublicationsPageState extends State<ListPublicationsPage> {
                                       Text(
                                         'Publicado: ${formatFecha(offer['created_at'])}',
                                         style: const TextStyle(
-                                          color: Colors.grey,
+                                          color: Color.fromARGB(255, 82, 80, 80),
                                           fontSize: 12,
                                         ),
                                       ),
-                                      Text(
-                                        'Precio: ${offer['precio'] ?? 'N/A'}',
-                                        style: const TextStyle(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => openWhatsApp(phoneNumber),
+                                            child: const FaIcon(
+                                              FontAwesomeIcons.whatsapp,
+                                              color: Colors.green,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            'Precio: ${offer['precio'] ?? 'N/A'}',
+                                            style: const TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
