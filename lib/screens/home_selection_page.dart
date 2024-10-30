@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'material_selection_page.dart'; // Asegúrate de importar la nueva pantalla
-import 'login_page.dart'; // Importa la pantalla de inicio de sesión
-import '../service/api_service.dart'; // Asegúrate de importar tu servicio API
+import 'material_selection_page.dart'; 
+import 'login_page.dart'; 
+import '../service/api_service.dart'; 
 
 class HomeSelectionPage extends StatelessWidget {
   final ApiService apiService = ApiService(); // Inicializa el servicio API
@@ -10,12 +10,15 @@ class HomeSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 234, 98, 8),
-        title: Text('Eco-Mercio', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 227, 104, 10),
         centerTitle: true,
+        title: Image.asset(
+          'assets/images/logoeco-2.png', // Logo en el centro del AppBar
+          height: 35,
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout, color: const Color.fromARGB(255, 11, 11, 11)),
+            icon: const Icon(Icons.logout, color: Color.fromARGB(255, 3, 3, 3)),
             onPressed: () async {
               // Lógica para cerrar sesión
               await apiService.logout(); // Llama a la función de cierre de sesión
@@ -28,17 +31,17 @@ class HomeSelectionPage extends StatelessWidget {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         color: Colors.black,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/logoeco-2.png', // Asegúrate de tener esta imagen en tu carpeta de assets
+              'assets/images/logoeco-2.png', // Imagen del logo
               height: 80,
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               '¿En qué te podemos ayudar hoy?',
               style: TextStyle(
                 color: Colors.white,
@@ -46,7 +49,7 @@ class HomeSelectionPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             // Botón "Comprar"
             ElevatedButton(
               onPressed: () {
@@ -55,12 +58,12 @@ class HomeSelectionPage extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green, // Color de fondo del botón
-                padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Comprar',
                 style: TextStyle(
                   fontSize: 18,
@@ -68,7 +71,7 @@ class HomeSelectionPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Botón "Vender"
             ElevatedButton(
               onPressed: () {
@@ -80,12 +83,12 @@ class HomeSelectionPage extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.yellow, // Color de fondo del botón
-                padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Vender',
                 style: TextStyle(
                   fontSize: 18,
@@ -93,7 +96,7 @@ class HomeSelectionPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             // Icono de reciclaje
             Image.asset(
               'assets/images/imagen-inicio.png', // Asegúrate de tener esta imagen en tu carpeta de assets

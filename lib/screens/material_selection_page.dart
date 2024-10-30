@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'create_offer_page.dart';
+import '../service/api_service.dart'; 
 
 class MaterialSelectionPage extends StatelessWidget {
+  final ApiService apiService = ApiService(); 
+
   // Lista de materiales con ID, nombre y ruta de imagen
   final List<Map<String, dynamic>> materials = [
     {'id': '1', 'name': 'Construcción', 'image': 'assets/images/materiales.png'},
@@ -15,8 +18,21 @@ class MaterialSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Eco-Mercio'),
         backgroundColor: const Color.fromARGB(255, 227, 104, 10),
+        centerTitle: true,
+        title: Image.asset(
+          'assets/images/logoeco-2.png', 
+          height: 35,
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Color.fromARGB(255, 0, 0, 0)),
+            onPressed: () async {
+              await apiService.logout(); // Llama al método de cerrar sesión
+              Navigator.pushReplacementNamed(context, '/login'); 
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,37 +40,24 @@ class MaterialSelectionPage extends StatelessWidget {
           children: [
             // Barra de búsqueda
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Buscar...',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  Icon(Icons.search, color: const Color.fromARGB(137, 243, 141, 7)),
-                ],
-              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Título de la sección
-            Text(
+            const Text(
               'Elige el tipo de material',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                color: Color.fromARGB(255, 255, 87, 34),
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Lista de materiales
             Expanded(
               child: ListView.builder(
@@ -74,14 +77,14 @@ class MaterialSelectionPage extends StatelessWidget {
                       );
                     },
                     child: Card(
-                      margin: EdgeInsets.symmetric(vertical: 8.0),
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.vertical(
+                            borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
                             ),
                             child: Image.asset(
@@ -95,7 +98,7 @@ class MaterialSelectionPage extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               material['name'],
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -112,7 +115,7 @@ class MaterialSelectionPage extends StatelessWidget {
         backgroundColor: Colors.black,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -126,7 +129,7 @@ class MaterialSelectionPage extends StatelessWidget {
           if (index == 0) {
             Navigator.pushNamed(context, '/homeSelection'); // Ir a Home
           } else if (index == 1) {
-            Navigator.pushNamed(context, '/profile'); // Lógica para ir a Mi Perfil
+            Navigator.pushNamed(context, '/profile'); // Ir a Mi Perfil
           }
         },
       ),

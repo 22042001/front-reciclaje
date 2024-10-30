@@ -87,30 +87,30 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear Oferta: ${widget.materialName}'),
-        backgroundColor: const Color.fromARGB(255, 214, 141, 6),
+        backgroundColor: const Color.fromARGB(255, 227, 104, 10),
+        centerTitle: true,
+        title: Image.asset(
+          'assets/images/logoeco-2.png', // Reemplaza el texto con el logo
+          height: 35,
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout, color: Colors.black),
             onPressed: _logout, // Llama al método de cerrar sesión
             tooltip: 'Cerrar sesión',
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Logo y Título
             Column(
               children: [
-                Image.asset(
-                  'assets/images/logoeco-2.png',
-                  height: 80,
-                ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   'Registro del Material',
                   style: TextStyle(
                     fontSize: 24,
@@ -118,7 +118,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                     color: Colors.green, // Color del título
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
             // Campo de Título
@@ -126,44 +126,44 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
               controller: titleController,
               labelText: 'Título del producto',
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             // Campo de Descripción
             _buildCustomTextField(
               controller: descriptionController,
               labelText: 'Descripción',
               maxLines: 3,
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             // Campo de Precio
             _buildCustomTextField(
               controller: priceController,
               labelText: 'Precio',
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             // Campo de Cantidad
             _buildCustomTextField(
               controller: quantityController,
               labelText: 'Cantidad del material',
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             // Campo de Ubicación
             _buildCustomTextField(
               controller: locationController,
               labelText: 'Ubicación',
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Selector de imagen
-            Text(
+            const Text(
               'Imagen del producto',
               style: TextStyle(
                 fontSize: 16, 
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 241, 239, 235),
+                color: Color.fromARGB(255, 241, 239, 235),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             GestureDetector(
               onTap: _pickImage,
               child: Container(
@@ -175,23 +175,23 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
                   border: Border.all(color: Colors.white),
                 ),
                 child: _image == null
-                    ? Center(child: Icon(Icons.add_a_photo, color: Colors.grey, size: 50))
+                    ? const Center(child: Icon(Icons.add_a_photo, color: Colors.grey, size: 50))
                     : Image.file(_image!, fit: BoxFit.cover),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Botón para enviar la oferta
             Center(
               child: ElevatedButton(
                 onPressed: _submitOffer,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange, // Color de fondo del botón
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Publicar Oferta',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
@@ -204,7 +204,7 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
         backgroundColor: Colors.black,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.white,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -236,25 +236,25 @@ class _CreateOfferPageState extends State<CreateOfferPage> {
       controller: controller,
       keyboardType: keyboardType,
       maxLines: maxLines,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.white),
         filled: true,
         fillColor: Colors.grey[800], // Fondo más oscuro
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
-          borderSide: BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Colors.orange),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
       ),
     );
   }
